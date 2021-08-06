@@ -1,1 +1,4 @@
-Version: 21d
+Version:            21d
+kernel headers:     v5.2
+
+Bionic commit base: 41488b79c440beb93202ac41fdd919d58feb3509
