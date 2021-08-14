@@ -193,7 +193,6 @@ char* basename(const char* __path) __RENAME(__gnu_basename) __INTRODUCED_IN(23);
  * Use two enable_ifs so these overloads don't conflict with + are preferred over libcxx's. This can
  * be reduced to 1 after libcxx recognizes that we have const-correct overloads.
  */
-#define __prefer_this_overload __enable_if(true, "preferred overload") __enable_if(true, "")
 extern "C++" {
 inline __always_inline
 void* __bionic_memchr(const void* const s __pass_object_size, int c, size_t n) {
@@ -202,12 +201,12 @@ void* __bionic_memchr(const void* const s __pass_object_size, int c, size_t n) {
 
 inline __always_inline
 const void* memchr(const void* const s __pass_object_size, int c, size_t n)
-        __prefer_this_overload {
+{
     return __bionic_memchr(s, c, n);
 }
 
 inline __always_inline
-void* memchr(void* const s __pass_object_size, int c, size_t n) __prefer_this_overload {
+void* memchr(void* const s __pass_object_size, int c, size_t n) {
     return __bionic_memchr(s, c, n);
 }
 
@@ -218,13 +217,13 @@ char* __bionic_strchr(const char* const s __pass_object_size, int c) {
 
 inline __always_inline
 const char* strchr(const char* const s __pass_object_size, int c)
-        __prefer_this_overload {
+{
     return __bionic_strchr(s, c);
 }
 
 inline __always_inline
 char* strchr(char* const s __pass_object_size, int c)
-        __prefer_this_overload {
+{
     return __bionic_strchr(s, c);
 }
 
@@ -234,12 +233,12 @@ char* __bionic_strrchr(const char* const s __pass_object_size, int c) {
 }
 
 inline __always_inline
-const char* strrchr(const char* const s __pass_object_size, int c) __prefer_this_overload {
+const char* strrchr(const char* const s __pass_object_size, int c) {
     return __bionic_strrchr(s, c);
 }
 
 inline __always_inline
-char* strrchr(char* const s __pass_object_size, int c) __prefer_this_overload {
+char* strrchr(char* const s __pass_object_size, int c) {
     return __bionic_strrchr(s, c);
 }
 
@@ -248,12 +247,12 @@ inline __always_inline
 char* __bionic_strstr(const char* h, const char* n) { return strstr(h, n); }
 
 inline __always_inline
-const char* strstr(const char* h, const char* n) __prefer_this_overload {
+const char* strstr(const char* h, const char* n) {
     return __bionic_strstr(h, n);
 }
 
 inline __always_inline
-char* strstr(char* h, const char* n) __prefer_this_overload {
+char* strstr(char* h, const char* n) {
     return __bionic_strstr(h, n);
 }
 
@@ -261,16 +260,15 @@ inline __always_inline
 char* __bionic_strpbrk(const char* h, const char* n) { return strpbrk(h, n); }
 
 inline __always_inline
-char* strpbrk(char* h, const char* n) __prefer_this_overload {
+char* strpbrk(char* h, const char* n) {
     return __bionic_strpbrk(h, n);
 }
 
 inline __always_inline
-const char* strpbrk(const char* h, const char* n) __prefer_this_overload {
+const char* strpbrk(const char* h, const char* n) {
     return __bionic_strpbrk(h, n);
 }
 }
-#undef __prefer_this_overload
 #endif
 
 __END_DECLS
